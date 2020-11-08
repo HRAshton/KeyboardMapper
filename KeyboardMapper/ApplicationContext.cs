@@ -27,6 +27,13 @@ namespace KeyboardMapper
 		private void LoadMappings()
 		{
 			var mappingsPath = Path.Combine(Process.GetCurrentProcess().StartInfo.WorkingDirectory, "Mappings.cfg");
+
+			if (!File.Exists(mappingsPath))
+			{
+				File.WriteAllText(mappingsPath, string.Empty);
+				MessageBox.Show("Mappings.cfg not found. Created.");
+			}
+			
 			foreach (var line in File.ReadAllLines(mappingsPath))
 			{
 				var parts = line.Split('=');
